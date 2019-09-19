@@ -16,4 +16,8 @@ public class Arrow : Weapon {
         base.OnTriggerEnter2D(other);
     }
 
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        base.OnCollisionEnter2D(collision);
+    }
 }

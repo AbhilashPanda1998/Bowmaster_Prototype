@@ -14,6 +14,12 @@ public abstract class Weapon : MonoBehaviour {
     {
 
     }
+
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        this.enabled = false;
+    }
     #endregion
 }
         

@@ -35,7 +35,6 @@ public class WeaponProjectile : MonoBehaviour
     private void Update()
     {
         m_DragPower = Vector2.Distance(m_InitializeDrag.transform.position, ReleasePointTransform.transform.position);
-        Camera.main.orthographicSize = m_PowerMultiplier;
         var pullDirection = ReleasePointTransform.position - (m_InitializeDrag.transform.position - ReleasePointTransform.position).normalized;
         AimerTransform.position = pullDirection;
     }

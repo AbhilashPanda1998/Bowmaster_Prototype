@@ -29,8 +29,8 @@ public class InitializeDrag : MonoBehaviour
     {
         var currentScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
         m_CurrentPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint) + m_DragOffset;
-        m_CurrentPosition.x = Mathf.Clamp(m_CurrentPosition.x, -3f, 3f);
-        m_CurrentPosition.y = Mathf.Clamp(m_CurrentPosition.y, -3f, 3f);
+        m_CurrentPosition.x = Mathf.Clamp(m_CurrentPosition.x, m_StartPosition.x-3f, m_StartPosition.x + 3f);
+        m_CurrentPosition.y = Mathf.Clamp(m_CurrentPosition.y, m_StartPosition.y - 3f, m_StartPosition.y + 3f);
         transform.position = m_CurrentPosition;
     }
 
