@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameData;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
     #region Variables
     [SerializeField]
     private InitializeDrag m_InitializeDrag;
-    private GameObject m_Weapon;
     [SerializeField]
     private float m_PowerMultiplier;
+    private GameObject m_Weapon;
     private float m_DragPower;
     private float m_Angle;
+    private bool m_isPlayerTurn =true;
     public Transform ReleasePointTransform;
     public Transform ProjectileSpawnTransform;
     public Transform AimerTransform;
@@ -20,8 +22,7 @@ public class PlayerController : MonoBehaviour
     private float m_PlayerHp;
     private string m_SelectedCharacterName;
     private CharacterData m_CharacterData;
-    public delegate void CameraAction();
-    public static event CameraAction CameraActionEvent;
+    public static Action<bool> CheckPlayerTurn;
     #endregion
 
     #region Properties
@@ -48,11 +49,13 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         InitializeDrag.ReleaseDragEvent += OnWeaponRelease;
+        AI.CheckAITurn += ResetPlayerTurn;
     }
 
     private void OnDisable()
     {
         InitializeDrag.ReleaseDragEvent -= OnWeaponRelease;
+        AI.CheckAITurn -= ResetPlayerTurn;
     }
 
     private void Update()
@@ -67,11 +70,23 @@ public class PlayerController : MonoBehaviour
     #region ClassFunctions
     private void OnWeaponRelease()
     {
+        m_isPlayerTurn = false;
+        m_InitializeDrag.gameObject.SetActive(false);
         m_WeaponInstance = Instantiate(m_Weapon, ProjectileSpawnTransform.position, m_Weapon.transform.rotation) as GameObject;
+        m_WeaponInstance.GetComponent<Weapon>().WeaponAssigner = this.gameObject;
         Vector2 direction = (AimerTransform.position - ReleasePointTransform.transform.position).normalized;
         m_WeaponInstance.GetComponent<Rigidbody2D>().AddForce(direction * m_DragPower * m_PowerMultiplier, ForceMode2D.Impulse);
-        if (CameraActionEvent != null)
-            CameraActionEvent.Invoke();
+        if(CheckPlayerTurn!=null)
+        {
+            CheckPlayerTurn(m_isPlayerTurn);
+        }
+
+    }
+
+    private void ResetPlayerTurn(bool isPlayerTurn)
+    {
+        m_isPlayerTurn = isPlayerTurn;
+        m_InitializeDrag.gameObject.SetActive(true);
     }
     #endregion
 }
