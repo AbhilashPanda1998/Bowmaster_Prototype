@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Aquaman
   m_EditorClassIdentifier: 
   _characterName: Aquaman
-  _hp: 100
+  _hp: 70
   _characterPrefab: {fileID: 5461514621487163023, guid: b959d6629556a9044bd0da1fa1aa4b7f,
     type: 3}
   _weapon: {fileID: 100000, guid: 9cc0763b7c030ee4ba1053810f26d391, type: 3}

@@ -3,51 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using GameData;
+using UnityEngine.UI;
+using TMPro;
 
 public class SceneManagements : MonoBehaviour
 {
     #region Variables
-    private static SceneManagements m_Instance;
+    [SerializeField]
+    private TextMeshProUGUI m_GameOverText;
     #endregion
 
     #region Properties
-    public static SceneManagements Instance
+    public TextMeshProUGUI GameOverText
     {
-        get { return m_Instance; }
+        get { return m_GameOverText;}
+        set { m_GameOverText = value; }
     }
     #endregion
 
     #region UnityCallbacks
     private void Awake()
     {
-        if (m_Instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            m_Instance = this;
-            DontDestroyOnLoad(gameObject);
-            CharacterData.CharacterDataLoader.Init();
-        }
+        CharacterData.CharacterDataLoader.Init();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            Play();
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene("GameScene");
+        }
     }
     #endregion
 
     #region ClassFunctions
-    public void Play()
+    public void PauseGame()
     {
-        SceneManager.LoadScene("GameScene");
-    }
-
-    public void Exit()
-    {
-        Application.Quit();
+        Time.timeScale = 0;
     }
     #endregion
 }

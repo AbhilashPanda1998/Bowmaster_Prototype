@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Thor
   m_EditorClassIdentifier: 
   _characterName: Thor
-  _hp: 100
+  _hp: 80
   _characterPrefab: {fileID: 5461514621487163023, guid: d790792385fa69e4385451d2e9546fba,
     type: 3}
   _weapon: {fileID: 100000, guid: a1a875f10ad9c0c4fb38df4dff022178, type: 3}

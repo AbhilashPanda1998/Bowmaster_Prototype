@@ -6,7 +6,7 @@ public abstract class Weapon : MonoBehaviour {
 
     #region Variables
     [SerializeField]
-    private int DamageAmount;
+    private int m_DamageAmount;
     private GameObject m_WeaponAssigner;
     #endregion
 
@@ -26,6 +26,9 @@ public abstract class Weapon : MonoBehaviour {
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        ICanBeDamaged damagable = collision.gameObject.GetComponent<ICanBeDamaged>();
+        if (damagable != null)
+            damagable.TakeDamage(m_DamageAmount);
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         this.enabled = false;
         Invoke("LerpCamera", 2f);

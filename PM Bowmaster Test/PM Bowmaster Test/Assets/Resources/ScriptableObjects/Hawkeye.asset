@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hawkeye
   m_EditorClassIdentifier: 
   _characterName: Hawkeye
-  _hp: 100
+  _hp: 70
   _characterPrefab: {fileID: 5461514621487163023, guid: c36841f8f40011943b401189f618862f,
     type: 3}
   _weapon: {fileID: 100000, guid: c8709faa18fa88c4ca265ff42f8ec2f5, type: 3}
